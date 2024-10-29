@@ -41,7 +41,7 @@ class OPENAI_API:
         input = input.replace("```", "")
         return input.strip()
     
-    def communication(self, prompt, timeout=360):
+    def communication(self, prompt, regen_number=1, timeout=360):
         try:
             response = self.client.chat.completions.create(
                 model = self.model,
@@ -52,6 +52,7 @@ class OPENAI_API:
                 timeout=timeout, 
                 temperature=self.temperature,
                 max_tokens=self.max_tokens,
+                n=regen_number
             )
             return response.choices[0].message.content.strip()
         except Exception as e:
